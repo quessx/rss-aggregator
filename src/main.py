@@ -26,8 +26,20 @@ async def main() -> None:
             raw_input: ActorInput | None = await Actor.get_input()
             input_data: ActorInput = validate_input(raw_input)
 
-            # Log input summary
             log_input_summary(input_data)
+
+            # Setup proxy configuration if provided
+            proxy_url: str | None = None
+            proxy_config = input_data.get("proxyConfiguration")
+            if proxy_config and proxy_config.get("useApifyProxy"):
+                try:
+                    proxy_configuration = await Actor.create_proxy_configuration(
+                        proxy_config
+                    )
+                    proxy_url = await proxy_configuration.new_url()
+                    Actor.log.info("Proxy configuration enabled")
+                except Exception as e:
+                    Actor.log.warning(f"Failed to setup proxy: {e}. Continuing without proxy.")
 
             # Extract input parameters
             rss_feeds: list[str] = input_data["rssFeeds"]
@@ -64,6 +76,7 @@ async def main() -> None:
                 enable_summarization=enable_summarization,
                 delay_between_feeds=delay_between_feeds,
                 summarization_strategy=summarization_strategy,
+                proxy_url=proxy_url,
             )
 
             # Process all feeds

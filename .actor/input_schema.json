@@ -84,6 +84,15 @@
             "default": 150,
             "minimum": 50,
             "maximum": 1000
+        },
+        "proxyConfiguration": {
+            "title": "Proxy Configuration",
+            "type": "object",
+            "description": "Proxy settings for accessing RSS feeds. Use Apify Proxy to avoid IP blocking and access feeds from different geographies.",
+            "editor": "proxy",
+            "default": {
+                "useApifyProxy": false
+            }
         }
     },
     "required": ["rssFeeds"]

@@ -9,6 +9,13 @@ from __future__ import annotations
 from typing import TypedDict
 
 
+class ProxyConfiguration(TypedDict, total=False):
+    """Proxy configuration for RSS feed access."""
+
+    useApifyProxy: bool
+    proxyUrls: list[dict[str, str]] | None
+
+
 class ActorInput(TypedDict, total=False):
     """Input schema for the RSS Aggregator Actor.
 
@@ -26,6 +33,7 @@ class ActorInput(TypedDict, total=False):
     aiMaxLength: int
     aiMinLength: int
     aiMaxSummaryLength: int
+    proxyConfiguration: ProxyConfiguration
 
 
 class RSSEntryData(TypedDict, total=False):

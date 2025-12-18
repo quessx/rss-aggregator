@@ -10,6 +10,7 @@ import asyncio
 from typing import TYPE_CHECKING, cast
 
 import feedparser
+import requests
 from apify import Actor
 
 from .ai_summarizer import SummarizationStrategy
@@ -36,6 +37,7 @@ class RSSProcessor:
         enable_summarization: bool = True,
         delay_between_feeds: float = 1.0,
         summarization_strategy: SummarizationStrategy | None = None,
+        proxy_url: str | None = None,
     ) -> None:
         """Initialize RSS processor.
 
@@ -44,6 +46,7 @@ class RSSProcessor:
             enable_summarization: Whether to extract summaries from entries
             delay_between_feeds: Delay in seconds between processing feeds
             summarization_strategy: Strategy for summarization (AI or basic)
+            proxy_url: Optional proxy URL for feed requests
         """
         self.keywords: list[str] = keywords or []
         self.enable_summarization: bool = enable_summarization
@@ -51,6 +54,7 @@ class RSSProcessor:
         self.summarization_strategy: SummarizationStrategy | None = (
             summarization_strategy
         )
+        self.proxy_url: str | None = proxy_url
 
     def _matches_keywords(self, entry: FeedParserDict) -> bool:
         """Check if entry matches any of the filter keywords.
@@ -171,8 +175,21 @@ class RSSProcessor:
         Actor.log.info(f"Processing feed: {feed_url}")
 
         try:
-            # Parse feed
-            parsed_feed = feedparser.parse(feed_url)
+            # Fetch feed with proxy if configured
+            if self.proxy_url:
+                proxies = {
+                    "http": self.proxy_url,
+                    "https": self.proxy_url,
+                }
+                Actor.log.debug(f"Using proxy for feed: {feed_url}")
+                response = requests.get(feed_url, proxies=proxies, timeout=30)
+                response.raise_for_status()
+                # Parse feed from response content
+                parsed_feed = feedparser.parse(response.content)
+            else:
+                # Parse feed directly (feedparser handles HTTP internally)
+                parsed_feed = feedparser.parse(feed_url)
+
             feed: FeedParserDict = cast(FeedParserDict, parsed_feed)
 
             # Check for parsing errors

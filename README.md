@@ -46,6 +46,9 @@ Powered by feedparser — excellent for RSS/Atom feeds. Lightweight and fast pro
 ✔ **Safe & Controlled Processing**  
 Configurable rate limiting, entry limits per feed, and graceful error handling.
 
+✔ **Proxy Support**  
+Optional Apify Proxy integration to avoid IP blocking and access feeds from different geographies.
+
 ## 💼 Use Cases
 
 - **News monitoring** — Track industry news and trends from multiple sources
@@ -93,7 +96,10 @@ Configurable rate limiting, entry limits per feed, and graceful error handling.
   "aiMaxLength": 1024,
   "aiMinLength": 50,
   "aiMaxSummaryLength": 150,
-  "delayBetweenFeeds": 1.0
+  "delayBetweenFeeds": 1.0,
+  "proxyConfiguration": {
+    "useApifyProxy": true
+  }
 }
 ```
 
@@ -109,6 +115,9 @@ Configurable rate limiting, entry limits per feed, and graceful error handling.
 - **aiMinLength** — Minimum summary length (default: 50 tokens)
 - **aiMaxSummaryLength** — Maximum summary length (default: 150 tokens)
 - **delayBetweenFeeds** — Delay in seconds between feeds for rate limiting (default: 1.0)
+- **proxyConfiguration** — Proxy settings for accessing RSS feeds (optional)
+- **useApifyProxy** — Use Apify Proxy to avoid IP blocking and access feeds from different geographies (default: false)
+- See [Apify Proxy documentation](https://docs.apify.com/platform/proxy) for advanced configuration
 
 ## 📂 Output Dataset
 

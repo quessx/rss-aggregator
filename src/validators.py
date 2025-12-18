@@ -61,6 +61,11 @@ def validate_input(input_data: ActorInput | None) -> ActorInput:
         "aiMaxSummaryLength": input_data.get("aiMaxSummaryLength", 150),
     }
 
+    # Add proxyConfiguration if provided (optional, no validation needed)
+    proxy_config = input_data.get("proxyConfiguration")
+    if proxy_config:
+        validated_input["proxyConfiguration"] = proxy_config
+
     # Validate maxEntriesPerFeed
     max_entries = validated_input["maxEntriesPerFeed"]
     if not isinstance(max_entries, int) or max_entries < 0:
