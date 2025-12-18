@@ -170,15 +170,6 @@ Supported Hugging Face models for summarization:
 
 The Actor automatically falls back to basic extraction if AI summarization fails or is unavailable.
 
-## 🏁 Getting Started
-
-### Quick Start on Apify
-
-1. Click **"Try for free"** on Apify
-2. Paste RSS feed URLs (e.g., `https://techcrunch.com/feed/`)
-3. Customize keywords and options
-4. Optionally enable AI summarization
-5. Run and download your dataset
 
 ## 📈 Performance
 
