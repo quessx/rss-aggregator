@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "rss-aggregator",
+    "title": "RSS Aggregator and Processor",
+    "version": "1.0.0",
+    "storages": {
+        "dataset": "./dataset_schema.json"
+    },
+    "meta": {
+        "templateId": "python-empty",
+        "generatedBy": "claude-3-5-sonnet-20241022"
+    },
+    "readme": "../README.md"
+}

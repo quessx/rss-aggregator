@@ -1,0 +1,98 @@
+{
+    "actorSpecification": 1,
+    "fields": {
+        "type": "object",
+        "properties": {
+            "title": {
+                "type": "string",
+                "description": "Entry title"
+            },
+            "link": {
+                "type": "string",
+                "description": "Entry URL",
+                "format": "uri"
+            },
+            "published": {
+                "type": "string",
+                "description": "Publication date (ISO 8601)",
+                "format": "date-time"
+            },
+            "summary": {
+                "type": "string",
+                "description": "Entry summary/description"
+            },
+            "feedTitle": {
+                "type": "string",
+                "description": "Source RSS feed title"
+            },
+            "feedUrl": {
+                "type": "string",
+                "description": "Source RSS feed URL",
+                "format": "uri"
+            },
+            "author": {
+                "type": "string",
+                "description": "Entry author (if available)"
+            },
+            "tags": {
+                "type": "array",
+                "description": "Entry tags/categories",
+                "items": {
+                    "type": "string"
+                }
+            }
+        },
+        "required": ["title", "link", "feedTitle", "feedUrl"]
+    },
+    "views": {
+        "overview": {
+            "title": "Overview",
+            "transformation": {
+                "fields": [
+                    "title",
+                    "link",
+                    "published",
+                    "summary",
+                    "feedTitle",
+                    "author",
+                    "tags"
+                ],
+                "desc": true
+            },
+            "display": {
+                "component": "table",
+                "properties": {
+                    "title": {
+                        "label": "Title",
+                        "format": "text"
+                    },
+                    "link": {
+                        "label": "Link",
+                        "format": "link"
+                    },
+                    "published": {
+                        "label": "Published",
+                        "format": "date"
+                    },
+                    "summary": {
+                        "label": "Summary",
+                        "format": "text"
+                    },
+                    "feedTitle": {
+                        "label": "Source Feed",
+                        "format": "text"
+                    },
+                    "author": {
+                        "label": "Author",
+                        "format": "text"
+                    },
+                    "tags": {
+                        "label": "Tags",
+                        "format": "array"
+                    }
+                }
+            }
+        }
+    }
+}
+

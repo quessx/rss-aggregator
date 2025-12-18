@@ -1,0 +1,12 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "RSS Aggregator Output",
+    "properties": {
+        "dataset": {
+            "type": "string",
+            "title": "Aggregated RSS Entries",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        }
+    }
+}
+
